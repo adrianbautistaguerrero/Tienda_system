@@ -22,8 +22,12 @@ export default function DetalleProducto() {
   const formatearRutaImagen = (ruta) => {
     if (!ruta) return "/placeholder.svg"
     if (ruta.startsWith("http://") || ruta.startsWith("https://")) return ruta
-    const rutaLimpia = ruta.startsWith("/") ? ruta.slice(1) : ruta
-    return `/productos/${rutaLimpia}`
+    
+    // .split('/').pop() corta cualquier ruta previa y se queda SOLO con "coreano.png"
+    const nombreArchivo = ruta.split('/').pop()
+    
+    // Armamos la ruta absoluta limpia
+    return `/productos/${nombreArchivo}`
   }
 
   return (
