@@ -18,11 +18,12 @@ export default function DetalleProducto() {
     return <div className="p-10 text-center text-gray-500">Cargando producto...</div>
   }
 
-  
+  // Función corregida: ahora inyecta la carpeta /products/ correctamente
   const formatearRutaImagen = (ruta) => {
     if (!ruta) return "/placeholder.svg"
     if (ruta.startsWith("http://") || ruta.startsWith("https://")) return ruta
-    return ruta.startsWith("/") ? ruta : `/${ruta}`
+    const rutaLimpia = ruta.startsWith("/") ? ruta.slice(1) : ruta
+    return `/products/${rutaLimpia}`
   }
 
   return (
@@ -40,12 +41,10 @@ export default function DetalleProducto() {
         {/* Contenedor estricto con estilo en línea para controlar el tamaño */}
         <div style={{ 
           width: '100%', 
-          
           minHeight: '400px', 
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'center', 
-         
           backgroundColor: 'transparent',
           overflow: 'hidden'
         }}>
@@ -54,10 +53,8 @@ export default function DetalleProducto() {
             alt={producto.nombre}
             onError={(e) => { e.target.src = "/placeholder.svg"; }}
             style={{ 
-              
               width: '70%', 
               height: '90%', 
-             
               objectFit: 'cover' 
             }}
           />
@@ -94,3 +91,5 @@ export default function DetalleProducto() {
     </div>
   )
 }
+             
+     
