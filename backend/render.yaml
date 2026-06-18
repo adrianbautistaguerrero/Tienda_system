@@ -1,0 +1,24 @@
+# Configuración opcional para desplegar en Render con Blueprint.
+# Crea la base de datos MySQL aparte (Render no ofrece MySQL gestionado;
+# usa un proveedor externo como Railway, Aiven, Clever Cloud o PlanetScale).
+services:
+  - type: web
+    name: tienda-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    envVars:
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false
