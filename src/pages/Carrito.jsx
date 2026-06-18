@@ -93,7 +93,7 @@ export default function Carrito() {
           </div>
           <button
             onClick={irAPagar}
-            className="mt-5 w-full rounded-md bg-marca-azul py-3 text-white hover:bg-marca-azulClaro"
+            className="mt-5 w-full rounded-md bg-green-600 py-3 text-white hover:bg-marca-azulClaro"
           >
             Proceder al pago
           </button>
