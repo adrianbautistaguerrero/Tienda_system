@@ -20,7 +20,7 @@ export default function Carrito() {
         <h1 className="text-2xl font-bold text-gray-800">Tu carrito esta vacio</h1>
         <Link
           to="/catalogo"
-          className="mt-5 inline-block rounded-md bg-marca-azul px-5 py-2.5 text-white hover:bg-marca-azulClaro"
+          className="mt-5 inline-block rounded-md bg-green 600 px-5 py-2.5 text-white hover:bg-marca-azulClaro"
         >
           Ir al catalogo
         </Link>
