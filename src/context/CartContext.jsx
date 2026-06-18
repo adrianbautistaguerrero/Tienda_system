@@ -21,11 +21,26 @@ export function CartProvider({ children }) {
   const agregar = (producto) => {
     setItems((prev) => {
       const existe = prev.find((p) => p.id === producto.id)
+      
       if (existe) {
+        // Validación 1: Evitar que al sumar 1 se supere el stock disponible
+        if (existe.cantidad >= producto.stock) {
+          alert(`Límite alcanzado. Solo hay ${producto.stock} unidades en stock.`);
+          return prev; // Retorna el carrito sin cambios
+        }
+
         return prev.map((p) =>
           p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p,
         )
       }
+
+      // Validación 2: Evitar agregar un producto sin stock desde cero
+      if (producto.stock < 1) {
+        alert("Este producto está agotado.");
+        return prev;
+      }
+
+      // Si todo está bien, se agrega por primera vez
       return [...prev, { ...producto, cantidad: 1 }]
     })
   }
@@ -36,8 +51,19 @@ export function CartProvider({ children }) {
 
   const cambiarCantidad = (id, cantidad) => {
     if (cantidad < 1) return
+
     setItems((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, cantidad } : p)),
+      prev.map((p) => {
+        if (p.id === id) {
+          // Validación 3: Evitar que suban la cantidad más allá del stock desde la vista del carrito
+          if (cantidad > p.stock) {
+            alert(`Solo hay ${p.stock} unidades disponibles.`);
+            return { ...p, cantidad: p.stock }; // Lo topa al máximo disponible
+          }
+          return { ...p, cantidad };
+        }
+        return p;
+      }),
     )
   }
 
