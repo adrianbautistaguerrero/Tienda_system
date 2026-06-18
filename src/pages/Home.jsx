@@ -13,6 +13,15 @@ export default function Home() {
     api.get("/categorias/listar.php").then(({ data }) => setCategorias(data))
   }, [])
 
+  // Función para extraer el nombre exacto de la imagen y apuntar a la carpeta
+  const formatearRutaImagen = (ruta) => {
+    if (!ruta) return "/placeholder.svg"
+    if (ruta.startsWith("http://") || ruta.startsWith("https://")) return ruta
+    
+    const nombreArchivo = ruta.split('/').pop()
+    return `/productos/${nombreArchivo}`
+  }
+
   return (
     <div>
       {/* Seccion principal / hero */}
@@ -58,9 +67,12 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 pb-14">
         <h2 className="mb-5 text-xl font-bold text-gray-800">Productos destacados</h2>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {destacados.map((p) => (
-            <ProductCard key={p.id} producto={p} />
-          ))}
+          {destacados.map((p) => {
+            // Clonamos el objeto producto y le inyectamos la ruta de imagen corregida
+            const productoCorregido = { ...p, imagen: formatearRutaImagen(p.imagen) };
+            
+            return <ProductCard key={productoCorregido.id} producto={productoCorregido} />;
+          })}
         </div>
       </section>
     </div>
