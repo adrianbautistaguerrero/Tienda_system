@@ -23,7 +23,7 @@ export default function DetalleProducto() {
     if (!ruta) return "/placeholder.svg"
     if (ruta.startsWith("http://") || ruta.startsWith("https://")) return ruta
     const rutaLimpia = ruta.startsWith("/") ? ruta.slice(1) : ruta
-    return `/products/${rutaLimpia}`
+    return `/productos/${rutaLimpia}`
   }
 
   return (
